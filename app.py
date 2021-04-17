@@ -1,10 +1,22 @@
 from flask import Flask
-app = Flask(__name__)
+from flask_restplus import Api
 
+from db import db
+from config import Config
+from controllers.entry import entries_ns
 
-@app.route('/')
-def hello():
-    return "Hello World!"
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config())
+
+    db.init_app(app)
+    api = Api(app)
+
+    api.add_namespace(entries_ns)
+
+    return app
 
 if __name__ == '__main__':
-    app.run()
+    app = create_app()
+    app.run(host="0.0.0.0", debug=True)
+
