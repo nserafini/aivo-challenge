@@ -2,10 +2,8 @@ from uuid import uuid4
 
 from sqlalchemy import Column
 from sqlalchemy import String
-from flask_sqlalchemy import SQLAlchemy
 
-
-db = SQLAlchemy()
+from db import db
 
 def get_uuid():
     return str(uuid4())
