@@ -10,8 +10,12 @@ def create_app():
     app.config.from_object(Config())
 
     db.init_app(app)
-    api = Api(app)
 
+    @app.route('/')
+    def index():
+        return 'It works!'
+
+    api = Api(app, doc='/docs/')
     api.add_namespace(entries_ns)
 
     return app
